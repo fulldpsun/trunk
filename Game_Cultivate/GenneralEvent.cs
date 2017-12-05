@@ -119,6 +119,6 @@ namespace Game_Cultivate
 
     public enum StatusType
     {
-        
+        亲密度=1,
     }
 }
