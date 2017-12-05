@@ -1,0 +1,278 @@
+﻿<Window x:Class="Game_Tetris.TetrisDesk"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="俄罗斯方块" Height="750" Width="750" WindowStyle="None" AllowsTransparency="True" Background="#00000000" Closing="Window_Closing" WindowStartupLocation="CenterScreen" Icon="/YOCUKITop;component/Image/Tetris.ico">
+    <Window.Resources>
+
+        <LinearGradientBrush x:Key="tbBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+            <LinearGradientBrush.RelativeTransform>
+                <TransformGroup>
+                    <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                    <RotateTransform Angle="-30" CenterY="0.5" CenterX="0.5"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </LinearGradientBrush.RelativeTransform>
+            <GradientStop Color="#FF97FF8E" Offset="0"/>
+            <GradientStop Color="White" Offset="0.502"/>
+            <GradientStop Color="#FF3BFF2B" Offset="1"/>
+        </LinearGradientBrush>
+
+        <Storyboard x:Key="BtnCloseMainEnter">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="tbMainClose">
+                <EasingColorKeyFrame KeyTime="0:0:0.5" Value="Red"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="BtnCloseMainLost">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="tbMainClose">
+                <EasingColorKeyFrame KeyTime="0:0:0.5" Value="White"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MainLoeding">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MainCloseing" x:Name="MainCloseing">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="grid">
+                <SplineDoubleKeyFrame KeyTime="0" Value="1"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0.2" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.56666666666666676"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0.8" Value="0.3"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="grid">
+                <SplineDoubleKeyFrame KeyTime="0" Value="1"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0.2" Value="1.1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.56666666666666676"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0.8" Value="0.3"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid">
+                <SplineDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="0.33333333333333337"/>
+                <SplineDoubleKeyFrame KeyTime="0:0:0.8" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="grid">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="360"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ShowSpNums">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="sptabs">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="spnums">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ShowSpTabs">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="spnums">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="sptabs">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="SorceChangeStory">
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="tbSorceText">
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1.2"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1.2"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="tbSorceText">
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1.2"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1.2"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="1"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(SkewTransform.AngleY)" Storyboard.TargetName="tbSorceText">
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-10"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="10"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+        	</DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="tbMainClose">
+            <BeginStoryboard Storyboard="{StaticResource BtnCloseMainEnter}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="tbMainClose">
+            <BeginStoryboard x:Name="BtnCloseMainLost_BeginStoryboard" Storyboard="{StaticResource BtnCloseMainLost}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource MainLoeding}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid x:Name="grid" RenderTransformOrigin="0.5,0.5" Margin="20">
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+        <Rectangle RadiusX="8" RadiusY="8" MouseMove="Rectangle_MouseMove" StrokeThickness="2">
+            <Rectangle.Stroke>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#80000000" Offset="0.498"/>
+                    <GradientStop Color="#80FFFFFF" Offset="1"/>
+                    <GradientStop Color="#80F9F9F9"/>
+                </LinearGradientBrush>
+            </Rectangle.Stroke>
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#A5810000" Offset="0.056"/>
+                    <GradientStop Color="#FFF1FF00" Offset="0.064"/>
+                    <GradientStop Color="#FF353509" Offset="0.534"/>
+                    <GradientStop Color="#FF2A3100" Offset="0.072"/>
+                    <GradientStop Color="#FF8A8B00" Offset="0.96"/>
+                    <GradientStop Color="#A5F7FF65" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Grid Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <TextBlock x:Name="tbMainClose" Text="×" HorizontalAlignment="Right" FontSize="26.667" Width="25" Foreground="White" TextAlignment="Center" MouseUp="tbMainClose_MouseUp" Margin="0,-4,0,4"></TextBlock>
+                <TextBlock x:Name="tbLogo" Text="俄罗斯方块" HorizontalAlignment="Left" FontSize="16" Foreground="White" TextAlignment="Center" Margin="5,5,0,0"/>
+            </Grid>
+            <Grid Grid.Row="1" Margin="10,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="420"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="600"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Rectangle Fill="#82000000" Margin="-5" RadiusX="5" RadiusY="5" StrokeThickness="5">
+                        <Rectangle.Stroke>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <LinearGradientBrush.RelativeTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                        <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                        <RotateTransform Angle="-10" CenterY="0.5" CenterX="0.5"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </LinearGradientBrush.RelativeTransform>
+                                <GradientStop Color="#FFF1FF00" Offset="0.534"/>
+                                <GradientStop Color="White" Offset="1"/>
+                                <GradientStop Color="White"/>
+                            </LinearGradientBrush>
+                        </Rectangle.Stroke>
+                        <Rectangle.Effect>
+                            <DropShadowEffect Opacity="0.4"/>
+                        </Rectangle.Effect>
+                    </Rectangle>
+                    <Grid Name="gridDesk">
+
+                    </Grid>
+                </Grid>
+                <Grid Name="gridDockTrick">
+
+                </Grid>
+                <Grid Name="gridTrick">
+
+                </Grid>
+                <Grid >
+                    <TextBlock Name="tbWinner" Style="{DynamicResource GameoverTextBlockStyle}" Text="Winner" RenderTransformOrigin="0.5,0.5" Visibility="Collapsed"></TextBlock>
+                    <TextBlock Name="tbGameover" Style="{DynamicResource GameoverTextBlockStyle}" Text="Game Over" RenderTransformOrigin="0.5,0.5" Visibility="Collapsed"></TextBlock>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid>
+                        <StackPanel Orientation="Vertical" Margin="20,0,0,0">
+                            <Grid Height="70">
+                                <TextBlock Name="tbSorceText" Style="{DynamicResource SudokuTextBlockStyle}" Text="{Binding SorceText}" RenderTransformOrigin="0.5,0.5"></TextBlock>
+                            </Grid>
+                            <Grid Height="70">
+                                <TextBlock Name="tbSubCnt" Style="{DynamicResource SudokuTextBlockStyle}" Text="{Binding SubCntText}" RenderTransformOrigin="0.5,0.5"></TextBlock>
+                            </Grid>
+                            <Grid Height="70">
+                                <TextBlock Name="tbLv" Style="{DynamicResource SudokuTextBlockStyle}" Text="{Binding LvText}" RenderTransformOrigin="0.5,0.5"></TextBlock>
+                            </Grid>
+                            <Grid Height="70">
+                                <TextBlock Name="tbTimeText" Style="{DynamicResource SudokuTextBlockStyle}" Text="{Binding TimeText}" RenderTransformOrigin="0.5,0.5"></TextBlock>
+                            </Grid>
+                            <Grid Height="70">
+                                <Button Width="60" Height="60" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,0,10,0" Tag="1" Click="AgainButton_Click" Style="{DynamicResource Buttonstyle1}" ToolTip="重来一局" Focusable="False">
+                                    <Button.Content>
+                                        <Image Source="/Game_Sudoku;component/Image/Forward%202.png"></Image>
+                                    </Button.Content>
+                                </Button>
+                            </Grid>
+                            <Grid Height="100">
+                                <Rectangle Fill="#82000000" Margin="-3" RadiusX="3" RadiusY="3" StrokeThickness="3" HorizontalAlignment="Left" Width="100">
+                                    <Rectangle.Stroke>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <LinearGradientBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform Angle="-10" CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </LinearGradientBrush.RelativeTransform>
+                                            <GradientStop Color="#FF9567FF" Offset="0.534"/>
+                                            <GradientStop Color="White" Offset="1"/>
+                                            <GradientStop Color="White"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Stroke>
+                                    <Rectangle.Effect>
+                                        <DropShadowEffect Opacity="0.4"/>
+                                    </Rectangle.Effect>
+                                </Rectangle>
+                                <Grid Name="gridnext" Margin="10">
+
+                                </Grid>
+                            </Grid>
+                            <Grid Height="50">
+                            </Grid>
+                            <Grid Height="100">
+                                <Rectangle Fill="#82170041" Margin="-3" RadiusX="3" RadiusY="3" StrokeThickness="3" Width="100" HorizontalAlignment="Left">
+                                    <Rectangle.Stroke>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <LinearGradientBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                                    <RotateTransform Angle="-10" CenterY="0.5" CenterX="0.5"/>
+                                                    <TranslateTransform/>
+                                                </TransformGroup>
+                                            </LinearGradientBrush.RelativeTransform>
+                                            <GradientStop Color="#FFFF7676" Offset="0.534"/>
+                                            <GradientStop Color="#FFF7FF6B" Offset="1"/>
+                                            <GradientStop Color="#FFF8FF7E"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Stroke>
+                                    <Rectangle.Effect>
+                                        <DropShadowEffect Opacity="0.4"/>
+                                    </Rectangle.Effect>
+                                </Rectangle>
+                                <Grid Name="gridsave" Margin="10">
+
+                                </Grid>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
