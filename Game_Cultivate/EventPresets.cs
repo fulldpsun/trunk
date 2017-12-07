@@ -8,6 +8,6 @@ namespace Game_Cultivate
 {
     public static class EventPresets
     {
-        
+        public static string dpdsz { get; set; }
     }
 }
