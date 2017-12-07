@@ -108,6 +108,13 @@ namespace Game_Cultivate
             }
         }
         
+        public void ChangeStatus()
+        {
+            if (CurrCat==null|| ChangeList==null)
+            {
+                return;
+            }
+        }
     }
 
     public enum EventType
@@ -120,6 +127,10 @@ namespace Game_Cultivate
     public enum StatusType
     {
         亲密度=1,
-
+        饱腹度=2,
+        干净度=3,
+        欢乐度=4,
+        愚蠢度=5,
+        健康度=6,
     }
 }
