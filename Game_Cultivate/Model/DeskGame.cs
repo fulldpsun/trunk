@@ -28,7 +28,9 @@ namespace Game_Cultivate
             }
             else
             {
-                GameContext.CurrPlayerPeople = new PlayerPeople() { CurrCat = new Cat(), CurrItems = new List<Item>() };
+                GameContext.CurrPlayerPeople = new PlayerPeople() { CurrCat = new Cat() {Intimacy=2,Health=2,Plaything=2,Cleanliness=2,Satiety=2,CreatTime=DateTime.Now,Silly=2 }, CurrItems = new List<Item>() };
+                RegisterWindow win = new RegisterWindow();
+                win.ShowDialog();
             }
         }
 

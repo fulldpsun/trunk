@@ -7,6 +7,46 @@
         mc:Ignorable="d"
         Title="RegisterWindow" Height="300" Width="300">
     <Grid>
-        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TabControl>
+                <TabItem Header="玩家" FontSize="20" Width="140">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">请输入你的名字</TextBlock>
+                        <TextBox Grid.Row="1" Text="{Binding Name}" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="20" ></TextBox>
+                        <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">你的性别</TextBlock>
+                        <TextBox Grid.Row="3" Text="{Binding Sex}" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="20" ></TextBox>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="猫咪" FontSize="20" Width="145">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22">你的猫咪叫什么名字</TextBlock>
+                        <TextBox Grid.Row="1" VerticalAlignment="Center" Text="{Binding CurrCat.Name}"></TextBox>
+                        <TextBlock Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22">你的猫咪的性别</TextBlock>
+                        <TextBox Grid.Row="3" VerticalAlignment="Center" Text="{Binding CurrCat.Sex}"></TextBox>
+                        <TextBlock Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22">你的猫咪多大了</TextBlock>
+                        <TextBox Grid.Row="5" VerticalAlignment="Center" Text="{Binding CurrCat.Age}"></TextBox>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+            <Button Grid.Row="1" Margin="2" Content="开始" Click="Button_Click"></Button>
+        </Grid>
     </Grid>
 </Window>

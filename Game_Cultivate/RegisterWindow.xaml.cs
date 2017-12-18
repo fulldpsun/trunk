@@ -24,5 +24,16 @@ namespace Game_Cultivate
             InitializeComponent();
             this.DataContext = GameContext.CurrPlayerPeople;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(GameContext.CurrPlayerPeople.Name)||string.IsNullOrEmpty(GameContext.CurrPlayerPeople.CurrCat.Name))
+            {
+                GlobalModule.GlobalControl.MessageBoxDialog("请完整填入信息再开始！", "提示", GlobalModule.MessageType.Error);
+                return;
+            }
+            this.DialogResult = true;
+            this.Close();
+        }
     }
 }
