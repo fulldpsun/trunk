@@ -14,8 +14,8 @@ namespace Game_Cultivate
         string eventText;
         bool isFin = false;
         List<GenneralEvent> childenEvent = new List<GenneralEvent>();
-        Dictionary<int, int> changeList = new Dictionary<int, int>();
-        Cat currCat;
+        Dictionary<StatusType, int> changeList = new Dictionary<StatusType, int>();
+        Cat CurrCat = GameContext.CurrPlayerPeople.CurrCat;
 
         public EventType CurrEventType
         {
@@ -82,7 +82,7 @@ namespace Game_Cultivate
             }
         }
 
-        public Dictionary<int, int> ChangeList
+        public Dictionary<StatusType, int> ChangeList
         {
             get
             {
@@ -94,33 +94,63 @@ namespace Game_Cultivate
                 changeList = value;
             }
         }
-
-        public Cat CurrCat
-        {
-            get
-            {
-                return currCat;
-            }
-
-            set
-            {
-                currCat = value;
-            }
-        }
         
         public void ChangeStatus()
         {
-            if (CurrCat==null|| ChangeList==null)
+            switch (this.CurrEventType)
             {
-                return;
+                case EventType.猫咪事件:
+                    {
+                        if (ChangeList == null)
+                        {
+                            return;
+                        }
+                        ChangeList.ToList().ForEach(a =>
+                        {
+                            switch (a.Key)
+                            {
+                                case StatusType.亲密度:
+                                    CurrCat.Intimacy += a.Value;
+                                    break;
+                                case StatusType.饱腹度:
+                                    CurrCat.Satiety += a.Value;
+                                    break;
+                                case StatusType.干净度:
+                                    CurrCat.Cleanliness += a.Value;
+                                    break;
+                                case StatusType.欢乐度:
+                                    CurrCat.Plaything += a.Value;
+                                    break;
+                                case StatusType.愚蠢度:
+                                    CurrCat.Silly += a.Value;
+                                    break;
+                                case StatusType.健康度:
+                                    CurrCat.Health += a.Value;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        });
+                    }
+                    break;
+                case EventType.人物事件:
+                    {
+
+                    }
+                    break;
+                case EventType.状态触发事件:
+                    break;
+                default:
+                    break;
             }
+            
         }
     }
 
     public enum EventType
     {
-        主动事件=1,
-        随机事件=2,
+        猫咪事件=1,
+        人物事件=2,
         状态触发事件=3,
     }
 
@@ -132,5 +162,7 @@ namespace Game_Cultivate
         欢乐度=4,
         愚蠢度=5,
         健康度=6,
+        金钱=7,
+
     }
 }

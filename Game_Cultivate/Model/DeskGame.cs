@@ -5,38 +5,36 @@ using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using System.IO;
 
 namespace Game_Cultivate
 {
     public class DeskGame :ViewModelBase
     {
-        Cat currCat = new Cat();
-
         public RelayCommand CheckStatusCommand { get; set; }
 
-        public Cat CurrCat
-        {
-            get
-            {
-                return currCat;
-            }
-
-            set
-            {
-                currCat = value;
-                RaisePropertyChanged("CurrCat");
-            }
-        }
+        
 
         public DeskGame()
         {
             CheckStatusCommand = new RelayCommand(OnCheckStatus);
-            CurrCat = new Cat() { Name = "大脸", Health = 5, Intimacy = 5, Plaything = 5, Satiety = 5, Silly = 5, Cleanliness = 5 };
+        }
+
+        public void InitGame()
+        {
+            if (File.Exists(System.Environment.CurrentDirectory + @"\Cultivate\PlayerPeople.xml"))
+            {
+                GameContext.CurrPlayerPeople = XmlHelper.DeserializeToObject<PlayerPeople>(System.Environment.CurrentDirectory + @"\Cultivate\PlayerPeople.xml");
+            }
+            else
+            {
+                GameContext.CurrPlayerPeople = new PlayerPeople() { CurrCat = new Cat(), CurrItems = new List<Item>() };
+            }
         }
 
         public void OnCheckStatus()
         {
-            CurrStatus win = new CurrStatus(CurrCat);
+            CurrStatus win = new CurrStatus();
             win.ShowDialog();
         }
 

@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 namespace Game_Cultivate
 {
     /// <summary>
-    /// CurrStatus.xaml 的交互逻辑
+    /// RegisterWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class CurrStatus : Window
+    public partial class RegisterWindow : Window
     {
-        public CurrStatus()
+        public RegisterWindow()
         {
             InitializeComponent();
-            this.DataContext = GameContext.CurrPlayerPeople.CurrCat;
+            this.DataContext = GameContext.CurrPlayerPeople;
         }
     }
 }
