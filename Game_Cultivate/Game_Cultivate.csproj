@@ -68,16 +68,16 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventPresets.cs" />
+    <Compile Include="Model\EventPresets.cs" />
     <Compile Include="GameContext.cs" />
-    <Compile Include="GenneralEvent.cs" />
-    <Compile Include="Item.cs" />
+    <Compile Include="Model\GenneralEvent.cs" />
+    <Compile Include="Model\Item.cs" />
     <Compile Include="Model\Cat.cs" />
     <Compile Include="CurrStatus.xaml.cs">
       <DependentUpon>CurrStatus.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\DeskGame.cs" />
-    <Compile Include="PlayerPeople.cs" />
+    <Compile Include="Model\PlayerPeople.cs" />
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
     </Compile>

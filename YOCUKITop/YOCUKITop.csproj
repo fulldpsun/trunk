@@ -135,6 +135,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Game_Cultivate\Game_Cultivate.csproj">
+      <Project>{aabb1d98-215b-417d-80c2-9009be51f20c}</Project>
+      <Name>Game_Cultivate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Game_Sudoku\Game_Sudoku.csproj">
       <Project>{CDA5CD58-830D-4429-A694-EAAE613DF296}</Project>
       <Name>Game_Sudoku</Name>
@@ -192,6 +196,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\Tetris.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\cultivate.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

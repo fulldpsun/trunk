@@ -224,5 +224,13 @@ namespace YOCUKITop
             IsTetris = false;
             imgTetris.Effect = null;
         }
+
+        private void btncultivate_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            new Game_Cultivate.MainWindow().ShowDialog();
+            this.Close();
+
+        }
     }
 }
